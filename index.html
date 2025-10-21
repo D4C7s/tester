@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>El ABC de la Energía: Conceptos Fundamentales y Rendimiento</title>
+
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- MathJax para fórmulas -->
+    <script>
+      window.MathJax = {
+        tex: { inlineMath: [['\\(','\\)'], ['\\[','\\]']] },
+        svg: { fontCache: 'global' }
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+
+    <style>
+        /* Reset básico */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            display: flex;
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            min-height: 100vh;
+            transition: background-color 1s ease;
+            color: #222;
+        }
+
+        /* Barra lateral fija */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 240px;
+            height: 100%;
+            background-color: #223044;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            padding: 24px 18px;
+            gap: 8px;
+            transition: background-color 0.5s ease, transform 0.3s ease;
+        }
+
+        nav h2 {
+            font-size: 18px;
+            line-height: 1.1;
+            margin-bottom: 10px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+
+        /* Botones de navegación */
+        .nav-btn {
+            background-color: #2f4b5f;
+            border: none;
+            color: white;
+            padding: 12px 14px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 14px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: background-color 0.25s ease, transform 0.18s ease, box-shadow 0.25s ease;
+        }
+
+        .nav-btn i { width: 20px; text-align: center; }
+
+        .nav-btn:hover {
+            background-color: #1abc9c;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 6px 18px rgba(27,188,155,0.12);
+            color: #062826;
+        }
+
+        .nav-btn.active {
+            background-color: #19b79f;
+            color: #062826;
+            box-shadow: 0 8px 22px rgba(27,188,155,0.14);
+        }
+
+        /* Área principal */
+        main {
+            margin-left: 260px; /* espacio para la barra */
+            padding: 36px;
+            flex: 1;
+            overflow-y: auto;
+            transition: background-color 1s ease;
+            min-height: 100vh;
+        }
+
+        /* Secciones */
+        .section {
+            display: none;
+            opacity: 0;
+            transform: translateY(6px);
+            transition: opacity 0.45s ease, transform 0.45s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Tarjeta de contenido */
+        .card {
+            background: rgba(255,255,255,0.85);
+            border-radius: 12px;
+            padding: 22px;
+            box-shadow: 0 8px 22px rgba(16,24,40,0.06);
+            margin-bottom: 18px;
+            line-height: 1.5;
+        }
+
+        h1 { font-size: 28px; margin-bottom: 8px; }
+        h2 { font-size: 20px; margin-bottom: 8px; }
+        h3 { font-size: 16px; margin-bottom: 8px; }
+
+        p { margin-bottom: 12px; color: #1e293b; }
+
+        code.inline { background:#f3f4f6; padding:2px 6px; border-radius:6px; font-family:monospace; font-size:0.95em; }
+
+        /* tabla simple */
+        table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+        th, td { padding: 8px 10px; border-bottom: 1px solid #e6eef6; text-align: left; font-size: 0.95em; }
+        th { background: transparent; color: #0f172a; font-weight: 600; }
+
+        /* Footer */
+        footer {
+            margin-top: 26px;
+            padding: 18px;
+            border-radius: 10px;
+            background-color: rgba(236,240,241,0.9);
+            text-align: center;
+            font-size: 0.9em;
+            color: #0f172a;
+        }
+
+        /* Preguntas / checklist */
+        .qa-list { margin-top: 14px; }
+        .qa-list li { margin-bottom: 8px; }
+
+        /* Responsive */
+        @media (max-width: 880px) {
+            nav { width: 64px; padding: 16px 8px; }
+            nav h2 { display: none; }
+            .nav-btn { padding: 10px 8px; font-size: 12px; justify-content: center; }
+            main { margin-left: 84px; padding: 18px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV LATERAL -->
+    <nav>
+        <h2>El ABC de la Energía<br><small style="font-weight:400;opacity:.9">Conceptos y Rendimiento</small></h2>
+
+        <button class="nav-btn active" id="btn-conceptos" onclick="showSection('conceptos','#f9f9f9', this)"><i class="fas fa-bolt"></i><span class="label">1. Energía, Trabajo y Potencia</span></button>
+        <button class="nav-btn" id="btn-renovables" onclick="showSection('renovables','#d6f5d6', this)"><i class="fas fa-leaf"></i><span class="label">2. Renovables / No Renovables</span></button>
+        <button class="nav-btn" id="btn-historia" onclick="showSection('historia','#b3e6b3', this)"><i class="fas fa-history"></i><span class="label">3. Historia en Argentina</span></button>
+        <button class="nav-btn" id="btn-tipos" onclick="showSection('tipos','#ffe0b3', this)"><i class="fas fa-solar-panel"></i><span class="label">4. Tipos de EERR</span></button>
+        <button class="nav-btn" id="btn-mapa" onclick="showSection('mapa','#cce0ff', this)"><i class="fas fa-map-marked-alt"></i><span class="label">5. Mapa Interactivo</span></button>
+        <button class="nav-btn" id="btn-simulador" onclick="showSection('simulador','#ffb3d9', this)"><i class="fas fa-cogs"></i><span class="label">6. Simulador Fotovoltaico</span></button>
+    </nav>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main id="main-content">
+
+        <!-- SECCIÓN 1: ENERGÍA, TRABAJO Y POTENCIA (DESARROLLADA) -->
+        <section id="conceptos" class="section active visible">
+            <article class="card">
+                <h1>La Base de Nuestra Matriz Energética: Energía, Trabajo y Potencia</h1>
+                <p>
+                    Para comprender el desafío de la transición energética y el rol de las energías renovables, es imprescindible dominar tres conceptos de la física:
+                    <strong>energía</strong>, <strong>trabajo</strong> y <strong>potencia</strong>. Esta sección ofrece una explicación didáctica, ecuaciones fundamentales y ejemplos numéricos que sirven como base para las secciones posteriores.
+                </p>
+            </article>
+
+            <article class="card">
+                <h2>1. Energía: la capacidad de transformación</h2>
+                <p>
+                    La <strong>energía</strong> es una propiedad de los sistemas que cuantifica su capacidad para producir transformaciones y efectos sobre otros sistemas.
+                    En física se conserva (principio de conservación de la energía): la energía puede cambiar de forma, pero la cantidad total en un sistema aislado permanece constante.
+                </p>
+
+                <h3>Formas comunes y fórmulas</h3>
+                <ul>
+                    <li><strong>Energía cinética:</strong> \(E_k = \dfrac{1}{2} m v^2\)</li>
+                    <li><strong>Energía potencial gravitatoria:</strong> \(E_p = m g h\)</li>
+                    <li><strong>Energía eléctrica instantánea (potencia * tiempo):</strong> \(E = P \cdot t\)</li>
+                </ul>
+
+                <h3>Unidades y conversión práctica</h3>
+                <p>La unidad SI es el <strong>joule (J)</strong>. En electricidad y uso cotidiano usamos frecuentemente el <strong>kilovatio-hora (kWh)</strong>. </p>
+                <table>
+                    <thead><tr><th>Unidad</th><th>Equivalencia</th></tr></thead>
+                    <tbody>
+                        <tr><td>1 W</td><td>1 J/s</td></tr>
+                        <tr><td>1 kW</td><td>1000 W</td></tr>
+                        <tr><td>1 kWh</td><td>1 kW × 1 h = 1000 × 3600 s = 3.6 × 10<sup>6</sup> J</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Ejemplo numérico (uso cotidiano)</h3>
+                <p>Una bombilla de 100 W encendida durante 10 horas consume:</p>
+                <p><strong>100 W × 10 h = 1000 Wh = 1 kWh = 3.6 × 10<sup>6</sup> J.</strong></p>
+
+            </article>
+
+            <article class="card">
+                <h2>2. Trabajo: la transferencia de energía</h2>
+                <p>
+                    El <strong>trabajo</strong> es el proceso por el que se transfiere energía entre sistemas. En mecánica, para una fuerza variable:
+                </p>
+                <p style="font-size:1.02em"> 
+                    \(\displaystyle W = \int_{\mathcal{C}} \vec{F}\cdot d\vec{s}\)
+                </p>
+                <p>Si la fuerza es constante y la dirección coincide con el desplazamiento: \(W = F\,s\cos\theta\).</p>
+
+                <h3>Observaciones didácticas</h3>
+                <ul>
+                    <li>El trabajo y la energía comparten unidades: ambos se miden en joules (J).</li>
+                    <li>El trabajo es un <em>proceso</em>, no una propiedad del sistema (a diferencia de la energía almacenada).</li>
+                </ul>
+
+                <h3>Ejemplo clásico</h3>
+                <p>Levantar una masa de 10 kg a una altura de 1.5 m (g ≈ 9.81 m/s²):</p>
+                <p>\(W = m g h = 10 \times 9.81 \times 1.5 = 147.15\ \text{J}\).</p>
+
+            </article>
+
+            <article class="card">
+                <h2>3. Potencia: la tasa de transformación</h2>
+                <p>
+                    La <strong>potencia</strong> mide la velocidad a la que se realiza trabajo o se transforma energía:
+                </p>
+                <p style="font-size:1.02em"> 
+                    \(\displaystyle P(t) = \dfrac{dW}{dt} \)   (potencia instantánea)
+                </p>
+                <p>Potencia media en un intervalo \(\Delta t\): \(\overline{P} = \dfrac{\Delta W}{\Delta t}\).</p>
+
+                <h3>Unidades</h3>
+                <p>1 W = 1 J/s. En generación se usan kW, MW, GW para describir la capacidad instalada.</p>
+
+                <h3>Ejemplo numérico</h3>
+                <p>Un motor de 2 kW que funciona 3 horas entrega:</p>
+                <p>\(E = P\cdot t = 2\ \text{kW} \times 3\ \text{h} = 6\ \text{kWh}\) = \(6 \times 3.6\times10^6 = 21.6\times 10^6\ \text{J}.\)</p>
+            </article>
+
+            <article class="card">
+                <h2>4. Rendimiento (eficiencia) y pérdidas</h2>
+                <p>
+                    El <strong>rendimiento</strong> (o eficiencia) de un proceso es la fracción de la energía de entrada que se transforma en la salida útil:
+                </p>
+                <p style="font-size:1.02em"> 
+                    \(\displaystyle \eta = \dfrac{E_{\text{útil}}}{E_{\text{entrada}}} \quad (0 \le \eta \le 1)\)
+                </p>
+                <p>En porcentaje: \(\eta_{\%}=100\cdot\eta\).</p>
+
+                <h3>Valores orientativos</h3>
+                <ul>
+                    <li>Motor eléctrico: \(\eta\sim 85\%-95\%\) en buenas condiciones.</li>
+                    <li>Motor de combustión interna (automotriz): \(\eta\sim 20\%-35\%\) según tecnología y régimen.</li>
+                    <li>Plant. fotovoltaica: pérdida en conversión, inversores y distribución — eficiencia global variable según escala y diseño.</li>
+                </ul>
+
+                <h3>Ejemplo numérico</h3>
+                <p>Si una central recibe 1000 kWh y entrega 360 kWh útiles,</p>
+                <p>\(\eta = \dfrac{360}{1000} = 0.36 = 36\%.\)</p>
+            </article>
+
+            <article class="card">
+                <h2>5. Conexión con renovables y no renovables (marco conceptual)</h2>
+                <p>
+                    Muchas fuentes renovables (eólica, solar, biomasa, hidroeléctrica) derivan su energía primaria de procesos impulsados por la radiación solar o por gradientes naturales. Las no renovables (petróleo, carbón, gas, uranio) son concentraciones de energía formadas en escalas geológicas.
+                </p>
+
+                <h3>Preguntas clave para evaluar una fuente</h3>
+                <ul>
+                    <li>¿Cuál es la densidad energética (energía por unidad de masa o volumen)?</li>
+                    <li>¿Qué fracción de la energía primaria se transforma en energía útil (η)?</li>
+                    <li>¿Cuál es el costo por kWh y la inversión inicial por MW instalado?</li>
+                    <li>¿Qué impactos ambientales y logísticos implica la cadena completa (extracción/instalación/operación)?</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <h2>6. Ejemplos numéricos prácticos (para estudiantes)</h2>
+                <h3>Cálculo rápido: Calentar 50 L de agua 40 °C</h3>
+                <p>
+                    Usando \(Q = m c \Delta T\) con \(c_{agua}\approx 4184\ \text{J/(kg·K)}\) y \(m = 50\ \text{kg}\):
+                </p>
+                <p style="font-weight:600">
+                    \(Q = 50 \times 4184 \times 40 = 8\,368\,000\ \text{J} \approx 2.324\ \text{kWh}.\)
+                </p>
+                <p>Interpretación: calentar 50 L por 40 °C consume ≈ 2.32 kWh, que ayuda a comparar con el rendimiento de una caldera o un termotanque.</p>
+
+                <h3>Conversión útil</h3>
+                <p>1 kWh = 3.6 × 10<sup>6</sup> J — recuerda esto para pasar entre electricidad y magnitudes térmicas o mecánicas.</p>
+            </article>
+
+            <article class="card">
+                <h2>7. Tabla resumen rápido</h2>
+                <table>
+                    <thead>
+                        <tr><th>Concepto</th><th>Fórmula</th><th>Unidad</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Energía cinética</td><td>\(E_k=\tfrac{1}{2}mv^2\)</td><td>J</td></tr>
+                        <tr><td>Energía potencial</td><td>\(E_p=mgh\)</td><td>J</td></tr>
+                        <tr><td>Trabajo</td><td>\(W=\int \vec F\cdot d\vec s\)</td><td>J</td></tr>
+                        <tr><td>Potencia</td><td>\(P=\dfrac{dW}{dt}\)</td><td>W (J/s)</td></tr>
+                        <tr><td>Energía eléctrica</td><td>\(E=P\cdot t\)</td><td>kWh, J</td></tr>
+                        <tr><td>Eficiencia</td><td>\(\eta=\dfrac{E_{útil}}{E_{entrada}}\)</td><td>adimensional / %</td></tr>
+                    </tbody>
+                </table>
+            </article>
+
+            <article class="card">
+                <h2>Preguntas para mejorar y pulir esta sección</h2>
+                <ul class="qa-list">
+                    <li>¿Querés que cada fórmula tenga un botón "ver derivación" que despliegue una deducción paso a paso? (útil para estudiantes avanzados)</li>
+                    <li>¿Querés ejemplos interactivos (calculadoras) donde el/la alumno/a cambie m,v,h,t y vea resultados instantáneos?</li>
+                    <li>¿Preferís más visuales: diagramas SVG que representen energía almacenada, flujos y pérdidas?</li>
+                    <li>¿Incluir ejercicios resueltos y problemas para imprimir/descargar en PDF?</li>
+                    <li>¿Te interesa la internacionalización (opción inglés / español) de formulas y ejemplos?</li>
+                </ul>
+            </article>
+        </section>
+
+        <!-- SECTION 2 (placeholder): Renovables / No Renovables -->
+        <section id="renovables" class="section">
+            <article class="card">
+                <h1>Energías Renovables y No Renovables</h1>
+                <p>Placeholder / marco teórico — aquí estará el texto ampliado sobre la definición, origen y ejemplos de cada tipo.</p>
+            </article>
+        </section>
+
+        <!-- SECTION 3 (placeholder): Historia -->
+        <section id="historia" class="section">
+            <article class="card">
+                <h1>Historia de la Energía en Argentina</h1>
+                <p>Placeholder para un recorrido histórico general y contextualización. (Resumen no muy específico, como pediste.)</p>
+            </article>
+        </section>
+
+        <!-- SECTION 4 (placeholder): Tipos -->
+        <section id="tipos" class="section">
+            <article class="card">
+                <h1>Tipos de Energías Renovables en Argentina</h1>
+                <p>Placeholder: aquí listaremos solar, eólica, hidráulica, biomasa, geotermia y su estado actual en Argentina.</p>
+            </article>
+        </section>
+
+        <!-- SECTION 5 (placeholder): Mapa -->
+        <section id="mapa" class="section">
+            <article class="card">
+                <h1>Mapa Interactivo</h1>
+                <p>Placeholder para mapa (Leaflet/Mapbox) — aquí se visualizarán centrales por provincia, tipos y rendimiento.</p>
+            </article>
+        </section>
+
+        <!-- SECTION 6 (placeholder): Simulador -->
+        <section id="simulador" class="section">
+            <article class="card">
+                <h1>Simulador Fotovoltaico</h1>
+                <p>Placeholder para un formulario que permita ingresar irradiación, área, eficiencia del panel, pérdidas y calcular producción estimada.</p>
+            </article>
+        </section>
+
+        <!-- FOOTER / BIBLIOGRAFÍA -->
+        <footer id="footer-card" class="card" style="margin-top: 18px;">
+            <strong>Bibliografía y créditos</strong><br>
+            Aquí iremos listando las fuentes (informes oficiales, Google Sheets, artículos científicos, libros). 
+            <br><small style="opacity:.85">Puedes añadir los enlaces o referencias en el Google Sheet de bibliografía y los insertamos luego.</small>
+        </footer>
+
+    </main>
+
+    <script>
+        /* Manejo de secciones, colores y animación visible */
+        const sections = Array.from(document.querySelectorAll('.section'));
+        const navButtons = Array.from(document.querySelectorAll('.nav-btn'));
+
+        function clearActiveNav() {
+            navButtons.forEach(btn => btn.classList.remove('active'));
+        }
+
+        function showSection(id, color, btn) {
+            // Actualiza botones activos
+            clearActiveNav();
+            if (btn) btn.classList.add('active');
+
+            // Muestra/oculta secciones
+            sections.forEach(sec => {
+                sec.classList.remove('active','visible');
+                if (sec.id === id) {
+                    sec.classList.add('active');
+                    // reflow para animación de entrada
+                    requestAnimationFrame(() => {
+                        sec.classList.add('visible');
+                    });
+                }
+            });
+
+            // Cambia colores con transición suave
+            document.body.style.backgroundColor = color;
+            document.querySelector('main').style.backgroundColor = 'transparent';
+            // footer background ligeramente más opaco
+            document.getElementById('footer-card').style.backgroundColor = 'rgba(236,240,241,0.9)';
+            // Opcional: ajustar color de nav para contraste (no obligatorio)
+        }
+
+        // Inicialización: asegurar que la sección visible tenga clase 'visible'
+        document.addEventListener('DOMContentLoaded', () => {
+            const visible = document.querySelector('.section.active');
+            if (visible) visible.classList.add('visible');
+            // Fijar un color inicial suave
+            document.body.style.backgroundColor = '#f9f9f9';
+        });
+    </script>
+
+</body>
+</html>
