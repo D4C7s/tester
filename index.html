@@ -114,7 +114,7 @@
 
         /* Tarjeta de contenido */
         .card {
-            background: rgba(255,255,255,0.85);
+            background: rgba(255,255,255,0.95);
             border-radius: 12px;
             padding: 22px;
             box-shadow: 0 8px 22px rgba(16,24,40,0.06);
@@ -146,10 +146,6 @@
             color: #0f172a;
         }
 
-        /* Preguntas / checklist */
-        .qa-list { margin-top: 14px; }
-        .qa-list li { margin-bottom: 8px; }
-
         /* Responsive */
         @media (max-width: 880px) {
             nav { width: 64px; padding: 16px 8px; }
@@ -157,6 +153,11 @@
             .nav-btn { padding: 10px 8px; font-size: 12px; justify-content: center; }
             main { margin-left: 84px; padding: 18px; }
         }
+
+        /* Estilo para figura / gif */
+        figure { margin: 14px 0; text-align: center; }
+        figure img { max-width: 100%; border-radius: 8px; display: inline-block; }
+        figcaption { font-size: 0.9em; color: #475569; margin-top: 6px; }
     </style>
 </head>
 <body>
@@ -176,141 +177,143 @@
     <!-- CONTENIDO PRINCIPAL -->
     <main id="main-content">
 
-        <!-- SECCIÓN 1: ENERGÍA, TRABAJO Y POTENCIA (DESARROLLADA) -->
+        <!-- SECCIÓN 1: ENERGÍA, TRABAJO Y POTENCIA (MODIFICADA: SOLO TEXTO PROPORCIONADO + TABLA) -->
         <section id="conceptos" class="section active visible">
             <article class="card">
                 <h1>La Base de Nuestra Matriz Energética: Energía, Trabajo y Potencia</h1>
-                <p>
-                    Para comprender el desafío de la transición energética y el rol de las energías renovables, es imprescindible dominar tres conceptos de la física:
-                    <strong>energía</strong>, <strong>trabajo</strong> y <strong>potencia</strong>. Esta sección ofrece una explicación didáctica, ecuaciones fundamentales y ejemplos numéricos que sirven como base para las secciones posteriores.
-                </p>
+
+                <!-- Aquí se insertó exactamente (formateado con MathJax) el texto que proporcionaste -->
+                <div>
+                    <p>
+                    Cuando hablamos de energía, muchas veces escuchamos que “es la capacidad que tiene un cuerpo para realizar trabajo”. Esta definición, muy usada en química y biología, suena correcta… pero a los físicos nos deja un poco inconformes. ¿Por qué? Porque es como decir que la energía sirve para hacer lo que hace la energía: una definición que gira en círculo.
+                    </p>
+
+                    <p>
+                    Entonces, ¿qué es realmente la energía? Si lo pensamos, todo a nuestro alrededor depende de ella. Cuando comemos un alfajor, aprovechamos la energía química de los alimentos para que nuestro cuerpo funcione. Cuando encendemos la luz, usamos energía eléctrica para transformar la oscuridad en claridad. En ambos casos hay energía, aunque se presente de formas distintas.
+                    </p>
+
+                    <p>
+                    Por eso, una definición más completa sería decir que la energía es la capacidad que tiene un cuerpo para transformarse a sí mismo o transformar su entorno. Y aunque esta idea se acerca bastante, la realidad es que la energía es un concepto tan amplio que no hay una única definición que logre abarcar todas sus manifestaciones. Maxwell, uno de los grandes físicos de la historia, la definió como una función escalar que permite calcular el trabajo, una manera más matemática de expresar lo mismo: la energía es una forma de medir los cambios que ocurren en el mundo.
+                    </p>
+
+                    <p>
+                    Un ejemplo claro de esto lo vemos en un saltador con pértiga. Cuando corre hacia la barra, acumula energía cinética. Al apoyar la pértiga, esa energía se transforma en energía potencial elástica, al doblarse la vara, y luego en energía potencial gravitacional, al elevarse su cuerpo. En el punto más alto, la pértiga ya no está doblada y casi toda la energía inicial del atleta se ha convertido en energía gravitacional: es decir, ha cambiado de forma, pero no ha desaparecido.
+                    </p>
+
+                    <!-- GIF: coloca tu gif en assets/gif-saltobarra.gif -->
+                    <figure>
+                        <img src="assets/gif-saltobarra.gif" alt="Saltador con pértiga — gif-saltobarra" loading="lazy">
+                        <figcaption>GIF: secuencia simplificada del salto con pértiga (archivo: <code>assets/gif-saltobarra.gif</code>).</figcaption>
+                    </figure>
+
+                    <p>
+                    Y justamente ahí está lo fascinante: la energía no se crea ni se destruye, solo se transforma. Desde el funcionamiento de nuestro cuerpo hasta el movimiento de un atleta o la electricidad de nuestras casas, todo lo que sucede en el universo es, en el fondo, un constante intercambio y transformación de energía.
+                    </p>
+
+                    <p>
+                    Cuando decimos que la energía puede transformarse, en realidad estamos hablando de cómo las fuerzas actúan sobre los cuerpos y les transfieren energía. Esa transferencia recibe un nombre muy particular en física: trabajo.
+                    </p>
+
+                    <p>
+                    En la vida cotidiana usamos la palabra “trabajo” para hablar de esfuerzo, pero en física tiene un significado más preciso. Una fuerza realiza trabajo sobre un cuerpo cuando lo desplaza en la misma dirección (o parcialmente en la misma dirección) que la fuerza aplicada. Si empujamos una caja y esta se mueve, estamos realizando trabajo sobre ella: parte de la energía de quien empuja se transfiere al objeto.
+                    </p>
+
+                    <p>Matemáticamente, el trabajo se define de la siguiente forma (adaptado a la expresión que preferiste):</p>
+
+                    <p style="font-weight:600">
+                        Para una fuerza que varía a lo largo del eje <em>x</em>:
+                        \[
+                            W = \int_{x_1}^{x_2} F(x)\,dx
+                        \]
+                        (esto es, integramos respecto de <em>x</em>, y la forma diferencial correspondiente es \(dW = F(x)\,dx\)).
+                    </p>
+
+                    <p>
+                        Si la fuerza es constante y la dirección coincide con el desplazamiento:
+                        \[
+                            W = F \, d \cdot \cos(\theta)
+                        \]
+                    </p>
+
+                    <p>
+                    Esto significa que si el desplazamiento es cero, el trabajo también lo es, aunque haya fuerza aplicada. Por ejemplo, sostener una mochila sin moverla no implica trabajo físico, aunque te canses.
+                    </p>
+
+                    <p>
+                    Ahora, cuando una fuerza realiza trabajo sobre un cuerpo, lo que hace es cambiar su energía. Si el cuerpo gana velocidad, su energía aumenta; si se eleva o comprime un resorte, la energía se almacena de otra forma. De ahí surgen los diferentes tipos de energía.
+                    </p>
+
+                    <h3>Energía Cinética</h3>
+                    <p>
+                        La energía cinética está asociada al movimiento. Cuanto mayor sea la masa y la velocidad de un objeto, mayor será su energía cinética.
+                        Su expresión matemática es:
+                    </p>
+                    <p style="font-weight:600">\[
+                        E_c = \tfrac{1}{2} m v^2
+                    \]</p>
+                    <p>donde <em>m</em> es la masa del cuerpo y <em>v</em> su velocidad. Si aplicamos una fuerza sobre un cuerpo y este acelera, el trabajo realizado sobre él se traduce en un aumento de su energía cinética.</p>
+
+                    <h3>Energía Potencial Gravitacional</h3>
+                    <p>
+                        Cuando un cuerpo se encuentra a cierta altura sobre la superficie terrestre, tiene la capacidad de caer y realizar trabajo gracias a la fuerza de gravedad. A esa capacidad la llamamos energía potencial gravitacional:
+                    </p>
+                    <p style="font-weight:600">\[
+                        E_{pg} = m \cdot g \cdot h
+                    \]</p>
+                    <p>donde <em>m</em> es la masa, <em>g</em> la aceleración de la gravedad (≈ 9,8 m/s²) y <em>h</em> la altura respecto a un punto de referencia.</p>
+
+                    <h3>Energía Potencial Elástica</h3>
+                    <p>
+                        Otro tipo de energía almacenada es la energía potencial elástica, que aparece cuando deformamos un cuerpo elástico (resorte, goma, pértiga):
+                    </p>
+                    <p style="font-weight:600">\[
+                        E_{pe} = \tfrac{1}{2} k x^2
+                    \]</p>
+                    <p>donde <em>k</em> es la constante elástica y <em>x</em> la deformación respecto a la posición natural.</p>
+
+                    <h3>Energía Mecánica y su Conservación</h3>
+                    <p>
+                        Sumando energía cinética y potencial obtenemos la energía mecánica total:
+                    </p>
+                    <p style="font-weight:600">\[
+                        E_m = E_c + E_p
+                    \]</p>
+                    <p>En sistemas donde sólo actúan fuerzas conservativas (como la gravedad o la elasticidad), la energía mecánica total se conserva.</p>
+
+                    <p>
+                    A lo largo de todo este recorrido vimos cómo la energía puede transformarse y conservarse, y cómo el trabajo permite que esas transformaciones ocurran. Pero no todas las transformaciones de energía suceden al mismo ritmo. Esa diferencia en la rapidez con que se realiza trabajo o se transforma energía es lo que en física llamamos potencia.
+                    </p>
+
+                    <h3>Potencia</h3>
+                    <p>
+                        La potencia mide cuánta energía se transforma en un cierto tiempo:
+                    </p>
+                    <p style="font-weight:600">\[
+                        P = \dfrac{W}{t}
+                    \]</p>
+                    <p>Su unidad es el watt (W) = J/s. Una máquina de 1000 W transforma 1000 J cada segundo.</p>
+
+                    <p>
+                    Esta idea fue clave en la Revolución Industrial (el término horsepower surge de comparar motores con caballos), y hoy es central en la industria: dos máquinas pueden hacer el mismo trabajo pero a ritmos distintos; la más rápida es la más potente.
+                    </p>
+
+                    <p>
+                    Además de la potencia, es clave la eficiencia: no toda la energía que ingresa a un sistema se transforma en trabajo útil; parte se pierde en calor, fricción o ruido. La eficiencia se define como la relación entre la potencia (o energía) útil y la consumida.
+                    </p>
+
+                    <p>
+                    Pensar en eficiencia energética implica también evaluar huella ambiental, disponibilidad del recurso y costos a largo plazo. Las fuentes fósiles convierten solo una fracción de su energía química en trabajo útil y generan externalidades ambientales; las renovables reducen muchas de esas externalidades pero plantean desafíos (intermitencia, almacenamiento, integración a la red).
+                    </p>
+
+                    <p>
+                    Desde la física industrial: optimizar procesos, diseñar máquinas más eficientes, recuperar calor, gestionar la demanda y combinar esto con fuentes de baja huella y almacenamiento. La pregunta inicial —¿cómo lograr transformaciones más eficientes y sostenibles?— exige una mirada sistémica que integre física, ingeniería, economía y políticas públicas.
+                    </p>
+                </div>
             </article>
 
+            <!-- TABLA RESUMEN RÁPIDO (SE MANTIENE SEGÚN INDICACIÓN) -->
             <article class="card">
-                <h2>1. Energía: la capacidad de transformación</h2>
-                <p>
-                    La <strong>energía</strong> es una propiedad de los sistemas que cuantifica su capacidad para producir transformaciones y efectos sobre otros sistemas.
-                    En física se conserva (principio de conservación de la energía): la energía puede cambiar de forma, pero la cantidad total en un sistema aislado permanece constante.
-                </p>
-
-                <h3>Formas comunes y fórmulas</h3>
-                <ul>
-                    <li><strong>Energía cinética:</strong> \(E_k = \dfrac{1}{2} m v^2\)</li>
-                    <li><strong>Energía potencial gravitatoria:</strong> \(E_p = m g h\)</li>
-                    <li><strong>Energía eléctrica instantánea (potencia * tiempo):</strong> \(E = P \cdot t\)</li>
-                </ul>
-
-                <h3>Unidades y conversión práctica</h3>
-                <p>La unidad SI es el <strong>joule (J)</strong>. En electricidad y uso cotidiano usamos frecuentemente el <strong>kilovatio-hora (kWh)</strong>. </p>
-                <table>
-                    <thead><tr><th>Unidad</th><th>Equivalencia</th></tr></thead>
-                    <tbody>
-                        <tr><td>1 W</td><td>1 J/s</td></tr>
-                        <tr><td>1 kW</td><td>1000 W</td></tr>
-                        <tr><td>1 kWh</td><td>1 kW × 1 h = 1000 × 3600 s = 3.6 × 10<sup>6</sup> J</td></tr>
-                    </tbody>
-                </table>
-
-                <h3>Ejemplo numérico (uso cotidiano)</h3>
-                <p>Una bombilla de 100 W encendida durante 10 horas consume:</p>
-                <p><strong>100 W × 10 h = 1000 Wh = 1 kWh = 3.6 × 10<sup>6</sup> J.</strong></p>
-
-            </article>
-
-            <article class="card">
-                <h2>2. Trabajo: la transferencia de energía</h2>
-                <p>
-                    El <strong>trabajo</strong> es el proceso por el que se transfiere energía entre sistemas. En mecánica, para una fuerza variable:
-                </p>
-                <p style="font-size:1.02em"> 
-                    \(\displaystyle W = \int_{\mathcal{C}} \vec{F}\cdot d\vec{s}\)
-                </p>
-                <p>Si la fuerza es constante y la dirección coincide con el desplazamiento: \(W = F\,s\cos\theta\).</p>
-
-                <h3>Observaciones didácticas</h3>
-                <ul>
-                    <li>El trabajo y la energía comparten unidades: ambos se miden en joules (J).</li>
-                    <li>El trabajo es un <em>proceso</em>, no una propiedad del sistema (a diferencia de la energía almacenada).</li>
-                </ul>
-
-                <h3>Ejemplo clásico</h3>
-                <p>Levantar una masa de 10 kg a una altura de 1.5 m (g ≈ 9.81 m/s²):</p>
-                <p>\(W = m g h = 10 \times 9.81 \times 1.5 = 147.15\ \text{J}\).</p>
-
-            </article>
-
-            <article class="card">
-                <h2>3. Potencia: la tasa de transformación</h2>
-                <p>
-                    La <strong>potencia</strong> mide la velocidad a la que se realiza trabajo o se transforma energía:
-                </p>
-                <p style="font-size:1.02em"> 
-                    \(\displaystyle P(t) = \dfrac{dW}{dt} \)   (potencia instantánea)
-                </p>
-                <p>Potencia media en un intervalo \(\Delta t\): \(\overline{P} = \dfrac{\Delta W}{\Delta t}\).</p>
-
-                <h3>Unidades</h3>
-                <p>1 W = 1 J/s. En generación se usan kW, MW, GW para describir la capacidad instalada.</p>
-
-                <h3>Ejemplo numérico</h3>
-                <p>Un motor de 2 kW que funciona 3 horas entrega:</p>
-                <p>\(E = P\cdot t = 2\ \text{kW} \times 3\ \text{h} = 6\ \text{kWh}\) = \(6 \times 3.6\times10^6 = 21.6\times 10^6\ \text{J}.\)</p>
-            </article>
-
-            <article class="card">
-                <h2>4. Rendimiento (eficiencia) y pérdidas</h2>
-                <p>
-                    El <strong>rendimiento</strong> (o eficiencia) de un proceso es la fracción de la energía de entrada que se transforma en la salida útil:
-                </p>
-                <p style="font-size:1.02em"> 
-                    \(\displaystyle \eta = \dfrac{E_{\text{útil}}}{E_{\text{entrada}}} \quad (0 \le \eta \le 1)\)
-                </p>
-                <p>En porcentaje: \(\eta_{\%}=100\cdot\eta\).</p>
-
-                <h3>Valores orientativos</h3>
-                <ul>
-                    <li>Motor eléctrico: \(\eta\sim 85\%-95\%\) en buenas condiciones.</li>
-                    <li>Motor de combustión interna (automotriz): \(\eta\sim 20\%-35\%\) según tecnología y régimen.</li>
-                    <li>Plant. fotovoltaica: pérdida en conversión, inversores y distribución — eficiencia global variable según escala y diseño.</li>
-                </ul>
-
-                <h3>Ejemplo numérico</h3>
-                <p>Si una central recibe 1000 kWh y entrega 360 kWh útiles,</p>
-                <p>\(\eta = \dfrac{360}{1000} = 0.36 = 36\%.\)</p>
-            </article>
-
-            <article class="card">
-                <h2>5. Conexión con renovables y no renovables (marco conceptual)</h2>
-                <p>
-                    Muchas fuentes renovables (eólica, solar, biomasa, hidroeléctrica) derivan su energía primaria de procesos impulsados por la radiación solar o por gradientes naturales. Las no renovables (petróleo, carbón, gas, uranio) son concentraciones de energía formadas en escalas geológicas.
-                </p>
-
-                <h3>Preguntas clave para evaluar una fuente</h3>
-                <ul>
-                    <li>¿Cuál es la densidad energética (energía por unidad de masa o volumen)?</li>
-                    <li>¿Qué fracción de la energía primaria se transforma en energía útil (η)?</li>
-                    <li>¿Cuál es el costo por kWh y la inversión inicial por MW instalado?</li>
-                    <li>¿Qué impactos ambientales y logísticos implica la cadena completa (extracción/instalación/operación)?</li>
-                </ul>
-            </article>
-
-            <article class="card">
-                <h2>6. Ejemplos numéricos prácticos (para estudiantes)</h2>
-                <h3>Cálculo rápido: Calentar 50 L de agua 40 °C</h3>
-                <p>
-                    Usando \(Q = m c \Delta T\) con \(c_{agua}\approx 4184\ \text{J/(kg·K)}\) y \(m = 50\ \text{kg}\):
-                </p>
-                <p style="font-weight:600">
-                    \(Q = 50 \times 4184 \times 40 = 8\,368\,000\ \text{J} \approx 2.324\ \text{kWh}.\)
-                </p>
-                <p>Interpretación: calentar 50 L por 40 °C consume ≈ 2.32 kWh, que ayuda a comparar con el rendimiento de una caldera o un termotanque.</p>
-
-                <h3>Conversión útil</h3>
-                <p>1 kWh = 3.6 × 10<sup>6</sup> J — recuerda esto para pasar entre electricidad y magnitudes térmicas o mecánicas.</p>
-            </article>
-
-            <article class="card">
-                <h2>7. Tabla resumen rápido</h2>
+                <h2>Tabla resumen rápido</h2>
                 <table>
                     <thead>
                         <tr><th>Concepto</th><th>Fórmula</th><th>Unidad</th></tr>
@@ -318,7 +321,7 @@
                     <tbody>
                         <tr><td>Energía cinética</td><td>\(E_k=\tfrac{1}{2}mv^2\)</td><td>J</td></tr>
                         <tr><td>Energía potencial</td><td>\(E_p=mgh\)</td><td>J</td></tr>
-                        <tr><td>Trabajo</td><td>\(W=\int \vec F\cdot d\vec s\)</td><td>J</td></tr>
+                        <tr><td>Trabajo</td><td>\(W=\int_{x_1}^{x_2} F(x)\,dx\)</td><td>J</td></tr>
                         <tr><td>Potencia</td><td>\(P=\dfrac{dW}{dt}\)</td><td>W (J/s)</td></tr>
                         <tr><td>Energía eléctrica</td><td>\(E=P\cdot t\)</td><td>kWh, J</td></tr>
                         <tr><td>Eficiencia</td><td>\(\eta=\dfrac{E_{útil}}{E_{entrada}}\)</td><td>adimensional / %</td></tr>
@@ -326,16 +329,6 @@
                 </table>
             </article>
 
-            <article class="card">
-                <h2>Preguntas para mejorar y pulir esta sección</h2>
-                <ul class="qa-list">
-                    <li>¿Querés que cada fórmula tenga un botón "ver derivación" que despliegue una deducción paso a paso? (útil para estudiantes avanzados)</li>
-                    <li>¿Querés ejemplos interactivos (calculadoras) donde el/la alumno/a cambie m,v,h,t y vea resultados instantáneos?</li>
-                    <li>¿Preferís más visuales: diagramas SVG que representen energía almacenada, flujos y pérdidas?</li>
-                    <li>¿Incluir ejercicios resueltos y problemas para imprimir/descargar en PDF?</li>
-                    <li>¿Te interesa la internacionalización (opción inglés / español) de formulas y ejemplos?</li>
-                </ul>
-            </article>
         </section>
 
         <!-- SECTION 2 (placeholder): Renovables / No Renovables -->
@@ -418,7 +411,6 @@
             document.querySelector('main').style.backgroundColor = 'transparent';
             // footer background ligeramente más opaco
             document.getElementById('footer-card').style.backgroundColor = 'rgba(236,240,241,0.9)';
-            // Opcional: ajustar color de nav para contraste (no obligatorio)
         }
 
         // Inicialización: asegurar que la sección visible tenga clase 'visible'
