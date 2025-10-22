@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>El ABC de la Energía: Conceptos Fundamentales y Rendimiento</title>
 
-    <!-- FontAwesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <!-- MathJax para fórmulas -->
     <script>
       window.MathJax = {
         tex: { inlineMath: [['\\(','\\)'], ['\\[','\\]']] },
@@ -157,12 +155,12 @@
         /* Estilo para figura / gif */
         figure { margin: 14px 0; text-align: center; }
         figure img { max-width: 100%; border-radius: 8px; display: inline-block; }
+        figure video { max-width: 100%; border-radius: 8px; display: inline-block; } /* AÑADIDO: Estilo para video */
         figcaption { font-size: 0.9em; color: #475569; margin-top: 6px; }
     </style>
 </head>
 <body>
 
-    <!-- NAV LATERAL -->
     <nav>
         <h2>El ABC de la Energía<br><small style="font-weight:400;opacity:.9">Conceptos y Rendimiento</small></h2>
 
@@ -174,15 +172,12 @@
         <button class="nav-btn" id="btn-simulador" onclick="showSection('simulador','#ffb3d9', this)"><i class="fas fa-cogs"></i><span class="label">6. Simulador Fotovoltaico</span></button>
     </nav>
 
-    <!-- CONTENIDO PRINCIPAL -->
     <main id="main-content">
 
-        <!-- SECCIÓN 1: ENERGÍA, TRABAJO Y POTENCIA (CON TU TEXTO ÍNTEGRO) -->
         <section id="conceptos" class="section active visible">
             <article class="card">
                 <h1>La Base de Nuestra Matriz Energética: Energía, Trabajo y Potencia</h1>
 
-                <!-- INICIO: Tu texto íntegro (formateado sólo en las fórmulas para MathJax) -->
                 <div>
                     <p>
                     Cuando hablamos de energía, muchas veces escuchamos que “es la capacidad que tiene un cuerpo para realizar trabajo”. Esta definición, muy usada en química y biología, suena correcta… pero a los físicos nos deja un poco inconformes. ¿Por qué? Porque es como decir que la energía sirve para hacer lo que hace la energía: una definición que gira en círculo.
@@ -201,10 +196,9 @@
                     </p>
 
                     <p style="text-align:center; margin-top:10px;">
-                        <!-- GIF: coloca tu gif en assets/gif-saltobarra.gif -->
                         <figure>
-                            <img src="assets/gif-saltobarra.gif" alt="Saltador con pértiga — gif-saltobarra" loading="lazy">
-                            <figcaption>GIF: secuencia simplificada del salto con pértiga (archivo: <code>assets/gif-saltobarra.gif</code>).</figcaption>
+                            <video src="assets/gif_saltobarra.mp4" alt="Saltador con pértiga — gif_saltobarra" loop muted autoplay playsinline loading="lazy"></video>
+                            <figcaption>Video: secuencia simplificada del salto con pértiga (archivo: <code>assets/gif_saltobarra.mp4</code>).</figcaption>
                         </figure>
                     </p>
 
@@ -336,11 +330,8 @@
                     En definitiva, la pregunta que hemos planteado al principio —¿cómo lograr transformaciones más eficientes y sostenibles?— no tiene una solución única ni puramente técnica. Es una pregunta sistémica que exige integrar física, ingeniería, economía y políticas públicas. La física nos da las herramientas para medir, comparar y optimizar las transformaciones energéticas; el desafío es aplicar esas herramientas pensando en el largo plazo: elegir fuentes con menor huella, reducir pérdidas, y rediseñar sistemas para que la energía que usamos hoy no comprometa la vida de las generaciones futuras.
                     </p>
                 </div>
-                <!-- FIN: Tu texto íntegro -->
+                </article>
 
-            </article>
-
-            <!-- (Adicional) Tabla resumen rápido: la dejo también por si querés mantenerla en la sección -->
             <article class="card">
                 <h2>Tabla resumen rápido</h2>
                 <table>
@@ -360,7 +351,6 @@
 
         </section>
 
-        <!-- SECTION 2 (placeholder): Renovables / No Renovables -->
         <section id="renovables" class="section">
             <article class="card">
                 <h1>Energías Renovables y No Renovables</h1>
@@ -368,7 +358,6 @@
             </article>
         </section>
 
-        <!-- SECTION 3 (placeholder): Historia -->
         <section id="historia" class="section">
             <article class="card">
                 <h1>Historia de la Energía en Argentina</h1>
@@ -376,7 +365,6 @@
             </article>
         </section>
 
-        <!-- SECTION 4 (placeholder): Tipos -->
         <section id="tipos" class="section">
             <article class="card">
                 <h1>Tipos de Energías Renovables en Argentina</h1>
@@ -384,7 +372,6 @@
             </article>
         </section>
 
-        <!-- SECTION 5 (placeholder): Mapa -->
         <section id="mapa" class="section">
             <article class="card">
                 <h1>Mapa Interactivo</h1>
@@ -392,7 +379,6 @@
             </article>
         </section>
 
-        <!-- SECTION 6 (placeholder): Simulador -->
         <section id="simulador" class="section">
             <article class="card">
                 <h1>Simulador Fotovoltaico</h1>
@@ -400,7 +386,6 @@
             </article>
         </section>
 
-        <!-- FOOTER / BIBLIOGRAFÍA -->
         <footer id="footer-card" class="card" style="margin-top: 18px;">
             <strong>Bibliografía y créditos</strong><br>
             Aquí iremos listando las fuentes (informes oficiales, Google Sheets, artículos científicos, libros). 
