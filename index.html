@@ -177,12 +177,12 @@
     <!-- CONTENIDO PRINCIPAL -->
     <main id="main-content">
 
-        <!-- SECCIÓN 1: ENERGÍA, TRABAJO Y POTENCIA (MODIFICADA: SOLO TEXTO PROPORCIONADO + TABLA) -->
+        <!-- SECCIÓN 1: ENERGÍA, TRABAJO Y POTENCIA (CON TU TEXTO ÍNTEGRO) -->
         <section id="conceptos" class="section active visible">
             <article class="card">
                 <h1>La Base de Nuestra Matriz Energética: Energía, Trabajo y Potencia</h1>
 
-                <!-- Aquí se insertó exactamente (formateado con MathJax) el texto que proporcionaste -->
+                <!-- INICIO: Tu texto íntegro (formateado sólo en las fórmulas para MathJax) -->
                 <div>
                     <p>
                     Cuando hablamos de energía, muchas veces escuchamos que “es la capacidad que tiene un cuerpo para realizar trabajo”. Esta definición, muy usada en química y biología, suena correcta… pero a los físicos nos deja un poco inconformes. ¿Por qué? Porque es como decir que la energía sirve para hacer lo que hace la energía: una definición que gira en círculo.
@@ -200,11 +200,13 @@
                     Un ejemplo claro de esto lo vemos en un saltador con pértiga. Cuando corre hacia la barra, acumula energía cinética. Al apoyar la pértiga, esa energía se transforma en energía potencial elástica, al doblarse la vara, y luego en energía potencial gravitacional, al elevarse su cuerpo. En el punto más alto, la pértiga ya no está doblada y casi toda la energía inicial del atleta se ha convertido en energía gravitacional: es decir, ha cambiado de forma, pero no ha desaparecido.
                     </p>
 
-                    <!-- GIF: coloca tu gif en assets/gif-saltobarra.gif -->
-                    <figure>
-                        <img src="assets/gif-saltobarra.gif" alt="Saltador con pértiga — gif-saltobarra" loading="lazy">
-                        <figcaption>GIF: secuencia simplificada del salto con pértiga (archivo: <code>assets/gif-saltobarra.gif</code>).</figcaption>
-                    </figure>
+                    <p style="text-align:center; margin-top:10px;">
+                        <!-- GIF: coloca tu gif en assets/gif-saltobarra.gif -->
+                        <figure>
+                            <img src="assets/gif-saltobarra.gif" alt="Saltador con pértiga — gif-saltobarra" loading="lazy">
+                            <figcaption>GIF: secuencia simplificada del salto con pértiga (archivo: <code>assets/gif-saltobarra.gif</code>).</figcaption>
+                        </figure>
+                    </p>
 
                     <p>
                     Y justamente ahí está lo fascinante: la energía no se crea ni se destruye, solo se transforma. Desde el funcionamiento de nuestro cuerpo hasta el movimiento de un atleta o la electricidad de nuestras casas, todo lo que sucede en el universo es, en el fondo, un constante intercambio y transformación de energía.
@@ -218,22 +220,23 @@
                     En la vida cotidiana usamos la palabra “trabajo” para hablar de esfuerzo, pero en física tiene un significado más preciso. Una fuerza realiza trabajo sobre un cuerpo cuando lo desplaza en la misma dirección (o parcialmente en la misma dirección) que la fuerza aplicada. Si empujamos una caja y esta se mueve, estamos realizando trabajo sobre ella: parte de la energía de quien empuja se transfiere al objeto.
                     </p>
 
-                    <p>Matemáticamente, el trabajo se define de la siguiente forma (adaptado a la expresión que preferiste):</p>
+                    <p>
+                    Matemáticamente, el trabajo se define como:
+                    </p>
 
                     <p style="font-weight:600">
-                        Para una fuerza que varía a lo largo del eje <em>x</em>:
-                        \[
-                            W = \int_{x_1}^{x_2} F(x)\,dx
-                        \]
-                        (esto es, integramos respecto de <em>x</em>, y la forma diferencial correspondiente es \(dW = F(x)\,dx\)).
+                        \( W = F \cdot d \cdot \cos(\theta) \)
                     </p>
 
                     <p>
-                        Si la fuerza es constante y la dirección coincide con el desplazamiento:
-                        \[
-                            W = F \, d \cdot \cos(\theta)
-                        \]
+                    donde:
                     </p>
+                    <ul>
+                        <li>\(W\) es el trabajo (medido en joules, J),</li>
+                        <li>\(F\) es la magnitud de la fuerza aplicada,</li>
+                        <li>\(d\) es el desplazamiento del objeto, y</li>
+                        <li>\(\theta\) es el ángulo entre la fuerza y el desplazamiento.</li>
+                    </ul>
 
                     <p>
                     Esto significa que si el desplazamiento es cero, el trabajo también lo es, aunque haya fuerza aplicada. Por ejemplo, sostener una mochila sin moverla no implica trabajo físico, aunque te canses.
@@ -245,73 +248,99 @@
 
                     <h3>Energía Cinética</h3>
                     <p>
-                        La energía cinética está asociada al movimiento. Cuanto mayor sea la masa y la velocidad de un objeto, mayor será su energía cinética.
-                        Su expresión matemática es:
+                    La energía cinética está asociada al movimiento. Cuanto mayor sea la masa y la velocidad de un objeto, mayor será su energía cinética. Su expresión matemática es:
                     </p>
-                    <p style="font-weight:600">\[
-                        E_c = \tfrac{1}{2} m v^2
-                    \]</p>
+                    <p style="font-weight:600">\( E_c = \dfrac{1}{2} m v^2 \)</p>
                     <p>donde <em>m</em> es la masa del cuerpo y <em>v</em> su velocidad. Si aplicamos una fuerza sobre un cuerpo y este acelera, el trabajo realizado sobre él se traduce en un aumento de su energía cinética.</p>
 
                     <h3>Energía Potencial Gravitacional</h3>
                     <p>
-                        Cuando un cuerpo se encuentra a cierta altura sobre la superficie terrestre, tiene la capacidad de caer y realizar trabajo gracias a la fuerza de gravedad. A esa capacidad la llamamos energía potencial gravitacional:
+                    Cuando un cuerpo se encuentra a cierta altura sobre la superficie terrestre, tiene la capacidad de caer y realizar trabajo gracias a la fuerza de gravedad. A esa capacidad la llamamos energía potencial gravitacional, y depende de la masa del objeto, de la aceleración de la gravedad y de la altura a la que se encuentra:
                     </p>
-                    <p style="font-weight:600">\[
-                        E_{pg} = m \cdot g \cdot h
-                    \]</p>
-                    <p>donde <em>m</em> es la masa, <em>g</em> la aceleración de la gravedad (≈ 9,8 m/s²) y <em>h</em> la altura respecto a un punto de referencia.</p>
+                    <p style="font-weight:600">\( E_{pg} = m \cdot g \cdot h \)</p>
+                    <p>donde: <em>m</em> es la masa del cuerpo, <em>g</em> es la aceleración de la gravedad (9,8 m/s²) y <em>h</em> es la altura respecto a un punto de referencia.</p>
+
+                    <p>
+                    Cuanto más alto esté un objeto, más energía potencial gravitacional posee, porque puede transformarla en movimiento al caer.
+                    </p>
 
                     <h3>Energía Potencial Elástica</h3>
                     <p>
-                        Otro tipo de energía almacenada es la energía potencial elástica, que aparece cuando deformamos un cuerpo elástico (resorte, goma, pértiga):
+                    Otro tipo de energía almacenada es la energía potencial elástica, que aparece cuando deformamos un cuerpo elástico, como un resorte, una goma o incluso la pértiga del atleta del ejemplo anterior. Su expresión matemática es:
                     </p>
-                    <p style="font-weight:600">\[
-                        E_{pe} = \tfrac{1}{2} k x^2
-                    \]</p>
-                    <p>donde <em>k</em> es la constante elástica y <em>x</em> la deformación respecto a la posición natural.</p>
+                    <p style="font-weight:600">\( E_{pe} = \dfrac{1}{2} k x^2 \)</p>
+                    <p>donde <em>k</em> es la constante elástica del resorte y <em>x</em> la deformación respecto a su posición natural (estiramiento o compresión).</p>
+
+                    <p>
+                    Esta energía se libera cuando el cuerpo vuelve a su forma original, transformándose nuevamente en energía cinética o en otro tipo de energía.
+                    </p>
 
                     <h3>Energía Mecánica y su Conservación</h3>
                     <p>
-                        Sumando energía cinética y potencial obtenemos la energía mecánica total:
+                    Si sumamos la energía cinética (movimiento) y la energía potencial (posición o deformación), obtenemos la energía mecánica total de un cuerpo o sistema:
                     </p>
-                    <p style="font-weight:600">\[
-                        E_m = E_c + E_p
-                    \]</p>
-                    <p>En sistemas donde sólo actúan fuerzas conservativas (como la gravedad o la elasticidad), la energía mecánica total se conserva.</p>
+                    <p style="font-weight:600">\( E_m = E_c + E_p \)</p>
+                    <p>donde \(E_p\) puede ser gravitacional o elástica, según el caso. En sistemas donde sólo actúan fuerzas conservativas (como la gravedad o la elasticidad), la energía mecánica total se conserva, lo que significa que no se pierde, sino que se transforma continuamente entre sus distintas formas.</p>
 
                     <p>
-                    A lo largo de todo este recorrido vimos cómo la energía puede transformarse y conservarse, y cómo el trabajo permite que esas transformaciones ocurran. Pero no todas las transformaciones de energía suceden al mismo ritmo. Esa diferencia en la rapidez con que se realiza trabajo o se transforma energía es lo que en física llamamos potencia.
-                    </p>
-
-                    <h3>Potencia</h3>
-                    <p>
-                        La potencia mide cuánta energía se transforma en un cierto tiempo:
-                    </p>
-                    <p style="font-weight:600">\[
-                        P = \dfrac{W}{t}
-                    \]</p>
-                    <p>Su unidad es el watt (W) = J/s. Una máquina de 1000 W transforma 1000 J cada segundo.</p>
-
-                    <p>
-                    Esta idea fue clave en la Revolución Industrial (el término horsepower surge de comparar motores con caballos), y hoy es central en la industria: dos máquinas pueden hacer el mismo trabajo pero a ritmos distintos; la más rápida es la más potente.
+                    Por ejemplo, el saltador con pértiga que mencionábamos antes transforma su energía cinética en energía potencial elástica cuando la pértiga se dobla, y luego en energía potencial gravitacional al elevarse. Al caer, el proceso se invierte. A lo largo de todo el salto, la energía total del sistema se mantiene constante: solo cambia de forma.
                     </p>
 
                     <p>
-                    Además de la potencia, es clave la eficiencia: no toda la energía que ingresa a un sistema se transforma en trabajo útil; parte se pierde en calor, fricción o ruido. La eficiencia se define como la relación entre la potencia (o energía) útil y la consumida.
+                    A lo largo de todo este recorrido vimos cómo la energía puede transformarse y conservarse, y cómo el trabajo permite que esas transformaciones ocurran. Pero no todas las transformaciones de energía suceden al mismo ritmo. Algunas son lentas y progresivas, como el crecimiento de una planta que transforma energía solar en energía química, mientras que otras son instantáneas, como un rayo que descarga millones de joules en una fracción de segundo. Esa diferencia en la rapidez con que se realiza trabajo o se transforma energía es lo que en física llamamos potencia.
                     </p>
 
                     <p>
-                    Pensar en eficiencia energética implica también evaluar huella ambiental, disponibilidad del recurso y costos a largo plazo. Las fuentes fósiles convierten solo una fracción de su energía química en trabajo útil y generan externalidades ambientales; las renovables reducen muchas de esas externalidades pero plantean desafíos (intermitencia, almacenamiento, integración a la red).
+                    La potencia mide cuánta energía se transforma en un cierto tiempo, o, dicho de otro modo, con qué rapidez se realiza trabajo. Matemáticamente, se define como:
+                    </p>
+                    <p style="font-weight:600">\( P = \dfrac{W}{t} \)</p>
+                    <p>donde \(P\) representa la potencia, \(W\) el trabajo realizado y \(t\) el tiempo empleado. Su unidad es el watt (W), que equivale a un joule por segundo. Así, una máquina con una potencia de 1000 W transforma mil joules de energía cada segundo.</p>
+
+                    <p>
+                    Esta idea, que puede parecer sencilla, fue clave para el desarrollo tecnológico. A partir de ella, el ser humano pudo comparar y diseñar máquinas no solo según la cantidad de trabajo que podían hacer, sino también según qué tan rápido podían hacerlo. En los primeros tiempos de la Revolución Industrial, por ejemplo, James Watt utilizó este concepto para medir la potencia de sus motores de vapor comparándolos con la fuerza de varios caballos de tiro, de ahí el famoso término horsepower o “caballo de fuerza”.
                     </p>
 
                     <p>
-                    Desde la física industrial: optimizar procesos, diseñar máquinas más eficientes, recuperar calor, gestionar la demanda y combinar esto con fuentes de baja huella y almacenamiento. La pregunta inicial —¿cómo lograr transformaciones más eficientes y sostenibles?— exige una mirada sistémica que integre física, ingeniería, economía y políticas públicas.
+                    Pero más allá de las anécdotas históricas, la potencia tiene un papel central en la física y en la industria moderna. Dos máquinas pueden realizar exactamente el mismo trabajo —por ejemplo, levantar una carga hasta cierta altura—, pero la diferencia está en cuánto tardan. La que lo haga en menos tiempo será más potente, porque transforma la energía con mayor rapidez.
+                    </p>
+
+                    <p>
+                    En el ámbito industrial, la potencia está directamente relacionada con la productividad y la eficiencia. Un motor eléctrico convierte energía eléctrica en energía mecánica para mover una cinta transportadora, una bomba hidráulica o un torno. Cuanto mayor sea su potencia, más trabajo podrá realizar por segundo. Sin embargo, no toda la energía que recibe se aprovecha en forma útil: parte de ella se pierde en calor, rozamiento o ruido. Por eso, además de conocer la potencia, es fundamental medir qué fracción de la energía total se transforma realmente en trabajo útil, algo que llamamos eficiencia energética.
+                    </p>
+
+                    <p>
+                    La eficiencia se define como la relación entre la potencia útil que entrega una máquina y la potencia total que consume. Ningún dispositivo alcanza el 100 % de eficiencia, porque siempre hay pérdidas inevitables. Aun así, el desarrollo tecnológico busca reducir esas pérdidas, optimizando el uso de la energía y aumentando el rendimiento de los sistemas.
+                    </p>
+
+                    <p>
+                    De esta manera, el concepto de potencia nos permite conectar el mundo abstracto de la física con la realidad concreta de las máquinas y la industria. Comprender cómo se transforma la energía, con qué rapidez se hace y cuánta se pierde en el proceso, es el primer paso para analizar más adelante cómo producimos, usamos y aprovechamos la energía en nuestra vida diaria. Y también para preguntarnos algo fundamental: ¿cómo lograr que esas transformaciones sean cada vez más eficientes y sostenibles?
+                    </p>
+
+                    <p>
+                    Responderla obliga a mirar más allá de la máquina individual y considerar la naturaleza del recurso energético y sus costos a largo plazo. Las fuentes tradicionales basadas en combustibles fósiles presentan límites claros: muchos motores de combustión convierten solo una fracción (orden del 20 % en algunos motores de autos) de la energía química en trabajo mecánico, y plantas térmicas suelen tener eficiencias modestamente superiores, con pérdidas importantes. Además, la extracción y el uso de estos combustibles generan externalidades —contaminación, emisiones de gases de efecto invernadero, impactos sobre ecosistemas— que comprometen su sostenibilidad.
+                    </p>
+
+                    <p>
+                    Por el contrario, las fuentes renovables (solar, eólica, geotérmica, mareomotriz, entre otras) aprovechan flujos energéticos naturales y, en general, reducen las externalidades ambientales. Presentan desafíos técnicos propios —intermitencia en solar y eólica, necesidades de almacenamiento y redes inteligentes— pero permiten diseñar sistemas energéticos menos dependientes de recursos finitos y con menor impacto ambiental. Algunas fuentes renovables, como la geotermia, ofrecen una producción continua y estable; otras requieren infraestructuras de almacenamiento o integración a la red para ser plenamente aprovechadas.
+                    </p>
+
+                    <p>
+                    En otras palabras: pensar en eficiencia energética ya no es solo maximizar la potencia útil por unidad de energía consumida; es evaluar la huella ambiental, la disponibilidad sostenida del recurso y el costo (económico y ecológico) de su adopción. La transición hacia fuentes renovables implica un doble objetivo: reducir la dependencia de combustibles fósiles y disminuir el impacto ambiental, mientras se mantiene o mejora el rendimiento de nuestras máquinas y procesos.
+                    </p>
+
+                    <p>
+                    Desde la perspectiva de la física industrial esto tiene consecuencias prácticas: optimizar procesos, diseñar máquinas más eficientes, implementar recuperación de calor, mejorar la gestión de la demanda, y combinar esto con fuentes de baja huella y con sistemas de almacenamiento y redes inteligentes. Solo así se puede construir un modelo energético resiliente y equilibrado.
+                    </p>
+
+                    <p>
+                    En definitiva, la pregunta que hemos planteado al principio —¿cómo lograr transformaciones más eficientes y sostenibles?— no tiene una solución única ni puramente técnica. Es una pregunta sistémica que exige integrar física, ingeniería, economía y políticas públicas. La física nos da las herramientas para medir, comparar y optimizar las transformaciones energéticas; el desafío es aplicar esas herramientas pensando en el largo plazo: elegir fuentes con menor huella, reducir pérdidas, y rediseñar sistemas para que la energía que usamos hoy no comprometa la vida de las generaciones futuras.
                     </p>
                 </div>
+                <!-- FIN: Tu texto íntegro -->
+
             </article>
 
-            <!-- TABLA RESUMEN RÁPIDO (SE MANTIENE SEGÚN INDICACIÓN) -->
+            <!-- (Adicional) Tabla resumen rápido: la dejo también por si querés mantenerla en la sección -->
             <article class="card">
                 <h2>Tabla resumen rápido</h2>
                 <table>
@@ -321,10 +350,10 @@
                     <tbody>
                         <tr><td>Energía cinética</td><td>\(E_k=\tfrac{1}{2}mv^2\)</td><td>J</td></tr>
                         <tr><td>Energía potencial</td><td>\(E_p=mgh\)</td><td>J</td></tr>
-                        <tr><td>Trabajo</td><td>\(W=\int_{x_1}^{x_2} F(x)\,dx\)</td><td>J</td></tr>
-                        <tr><td>Potencia</td><td>\(P=\dfrac{dW}{dt}\)</td><td>W (J/s)</td></tr>
+                        <tr><td>Trabajo</td><td>\(W=F\cdot d\cdot\cos(\theta)\)</td><td>J</td></tr>
+                        <tr><td>Potencia</td><td>\(P=\dfrac{W}{t}\)</td><td>W (J/s)</td></tr>
                         <tr><td>Energía eléctrica</td><td>\(E=P\cdot t\)</td><td>kWh, J</td></tr>
-                        <tr><td>Eficiencia</td><td>\(\eta=\dfrac{E_{útil}}{E_{entrada}}\)</td><td>adimensional / %</td></tr>
+                        <tr><td>Eficiencia</td><td>\(\eta=\dfrac{E_{\text{útil}}}{E_{\text{entrada}}}\)</td><td>adimensional / %</td></tr>
                     </tbody>
                 </table>
             </article>
@@ -343,7 +372,7 @@
         <section id="historia" class="section">
             <article class="card">
                 <h1>Historia de la Energía en Argentina</h1>
-                <p>Placeholder para un recorrido histórico general y contextualización. (Resumen no muy específico, como pediste.)</p>
+                <p>Placeholder para un recorrido histórico general y contextualización.</p>
             </article>
         </section>
 
