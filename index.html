@@ -20,19 +20,24 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            display: flex;
+            /* Usamos display: flex en el body para organizar nav y main */
+            display: flex; 
             font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
             min-height: 100vh;
             transition: background-color 1s ease;
             color: #222;
         }
+        
+        /* ------------------------------------------- */
+        /* NAV LATERAL (Desktop/Tablet)                */
+        /* ------------------------------------------- */
 
-        /* Barra lateral fija */
         nav {
             position: fixed;
             top: 0;
             left: 0;
-            width: 240px;
+            /* Usamos un ancho fijo para desktop, lo adaptaremos en móvil */
+            width: 240px; 
             height: 100%;
             background-color: #223044;
             color: #fff;
@@ -41,6 +46,8 @@
             padding: 24px 18px;
             gap: 8px;
             transition: background-color 0.5s ease, transform 0.3s ease;
+            /* Asegura que la barra de navegación no ocupe más espacio del necesario */
+            z-index: 100; 
         }
 
         nav h2 {
@@ -83,9 +90,12 @@
             box-shadow: 0 8px 22px rgba(27,188,155,0.14);
         }
 
-        /* Área principal */
+        /* ------------------------------------------- */
+        /* ÁREA PRINCIPAL (main)                       */
+        /* ------------------------------------------- */
         main {
-            margin-left: 260px; /* espacio para la barra */
+            /* Mantiene el margen para dar espacio al NAV fijo de 240px */
+            margin-left: 260px; 
             padding: 36px;
             flex: 1;
             overflow-y: auto;
@@ -114,7 +124,8 @@
         .card {
             background: rgba(255,255,255,0.95);
             border-radius: 12px;
-            padding: 22px;
+            /* Usamos padding basado en EMs o Rems para que sea relativo al tamaño de la fuente */
+            padding: 1.5em; 
             box-shadow: 0 8px 22px rgba(16,24,40,0.06);
             margin-bottom: 18px;
             line-height: 1.5;
@@ -132,6 +143,11 @@
         table { width: 100%; border-collapse: collapse; margin-top: 8px; }
         th, td { padding: 8px 10px; border-bottom: 1px solid #e6eef6; text-align: left; font-size: 0.95em; }
         th { background: transparent; color: #0f172a; font-weight: 600; }
+        
+        /* Centrar los párrafos de las ecuaciones */
+        p[style*="font-weight:600"] {
+            text-align: center;
+        }
 
         /* Footer */
         footer {
@@ -144,23 +160,92 @@
             color: #0f172a;
         }
 
-        /* Responsive */
-        @media (max-width: 880px) {
-            nav { width: 64px; padding: 16px 8px; }
-            nav h2 { display: none; }
-            .nav-btn { padding: 10px 8px; font-size: 12px; justify-content: center; }
-            main { margin-left: 84px; padding: 18px; }
-        }
-
         /* Estilo para figura / gif */
         figure { margin: 14px 0; text-align: center; }
         figure img { max-width: 100%; border-radius: 8px; display: inline-block; }
         figure video { max-width: 100%; border-radius: 8px; display: inline-block; }
         figcaption { font-size: 0.9em; color: #475569; margin-top: 6px; }
-        
-        /* CAMBIO APLICADO: Centrar los párrafos de las ecuaciones */
-        p[style*="font-weight:600"] {
-            text-align: center;
+
+        /* ------------------------------------------- */
+        /* ADAPTACIÓN RESPONSIVE (Móvil/Tablet pequeña) */
+        /* ------------------------------------------- */
+        @media (max-width: 880px) {
+            
+            /* NAV: Reducimos el ancho y mostramos solo iconos */
+            nav { 
+                /* Nuevo ancho fijo reducido, ocupa menos espacio */
+                width: 64px; 
+                padding: 16px 8px; 
+            }
+            nav h2 { 
+                /* Ocultamos el título de la navegación */
+                display: none; 
+            }
+            .nav-btn { 
+                padding: 10px 8px; 
+                font-size: 12px; 
+                justify-content: center; 
+            }
+            /* Ocultamos el texto de los botones en móvil */
+            .nav-btn .label {
+                display: none;
+            }
+
+            /* MAIN: Ajustamos el margen para que el contenido fluya */
+            main { 
+                /* El margen ahora corresponde al nuevo ancho de NAV + padding */
+                margin-left: 84px; 
+                padding: 18px; 
+            }
+        }
+
+        /* Adaptación para dispositivos aún más pequeños (ej. ancho < 480px) */
+        @media (max-width: 480px) {
+            
+            /* NAV: Convertimos la barra lateral en una barra superior oculta o desplegable.
+               Para este diseño simple, vamos a hacer la barra de navegación flotar y que se active
+               solo al hacer clic. Por defecto la ocultaremos parcialmente. */
+            nav {
+                width: 100vw; /* Ocupa todo el ancho de la pantalla */
+                height: auto; /* Altura se ajusta al contenido */
+                flex-direction: row; /* Elementos en línea */
+                flex-wrap: wrap; /* Si hay muchos botones, que bajen */
+                position: relative; /* Ya no es fijo, es parte del flujo del documento */
+                padding: 12px;
+            }
+
+            nav h2 { 
+                display: block; 
+                font-size: 1.2em;
+                width: 100%; /* Ocupa toda la línea */
+                text-align: center;
+                margin-bottom: 12px;
+            }
+            
+            .nav-btn {
+                flex: 1 1 30%; /* Distribuye botones en la fila (30% para que quepan 3 o 4) */
+                padding: 8px 6px;
+                text-align: center;
+                font-size: 12px;
+            }
+            .nav-btn .label {
+                display: block; /* Volvemos a mostrar la etiqueta */
+            }
+            .nav-btn i {
+                display: none; /* Ocultamos el icono para ahorrar espacio, ya que la etiqueta está */
+            }
+
+            /* MAIN: Eliminamos el margen y el contenido ocupa todo el ancho */
+            main {
+                margin-left: 0; /* Eliminamos el margen fijo */
+                padding: 15px; /* Reducimos el padding */
+                width: 100%;
+            }
+            
+            /* Ajuste de fuentes para mejor lectura en pantallas muy pequeñas */
+            h1 { font-size: 1.8em; }
+            h2 { font-size: 1.4em; }
+            .card { padding: 1em; }
         }
     </style>
 </head>
