@@ -20,24 +20,22 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            /* Usamos display: flex en el body para organizar nav y main */
-            display: flex; 
+            /* body ya no necesita ser flex container directo para el layout principal */
             font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
             min-height: 100vh;
             transition: background-color 1s ease;
             color: #222;
         }
-        
+
         /* ------------------------------------------- */
-        /* NAV LATERAL (Desktop/Tablet)                */
+        /* MENÚ DESPLEGABLE (NAV)                      */
         /* ------------------------------------------- */
 
         nav {
             position: fixed;
             top: 0;
             left: 0;
-            /* Usamos un ancho fijo para desktop, lo adaptaremos en móvil */
-            width: 240px; 
+            width: 280px; /* Ancho un poco más grande para comodidad */
             height: 100%;
             background-color: #223044;
             color: #fff;
@@ -45,9 +43,15 @@
             flex-direction: column;
             padding: 24px 18px;
             gap: 8px;
-            transition: background-color 0.5s ease, transform 0.3s ease;
-            /* Asegura que la barra de navegación no ocupe más espacio del necesario */
-            z-index: 100; 
+            z-index: 1000; /* Asegura que esté por encima del contenido */
+            /* Transición para el efecto de deslizado */
+            transform: translateX(-100%); 
+            transition: transform 0.3s ease;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        nav.active {
+            transform: translateX(0); /* Muestra el menú */
         }
 
         nav h2 {
@@ -91,167 +95,128 @@
         }
 
         /* ------------------------------------------- */
+        /* BOTÓN HAMBURGUESA (Menú Toggle)             */
+        /* ------------------------------------------- */
+
+        #menu-toggle {
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1001; /* Siempre por encima de todo */
+            background-color: #223044;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.2s ease;
+        }
+
+        #menu-toggle:hover {
+            background-color: #19b79f;
+        }
+
+        /* ------------------------------------------- */
         /* ÁREA PRINCIPAL (main)                       */
         /* ------------------------------------------- */
         main {
-            /* Mantiene el margen para dar espacio al NAV fijo de 240px */
-            margin-left: 260px; 
+            /* Eliminamos el margen fijo, el contenido ocupará el 100% */
+            margin: 0;
             padding: 36px;
-            flex: 1;
-            overflow-y: auto;
+            padding-top: 60px; /* Espacio para el botón de menú */
+            width: 100%;
             transition: background-color 1s ease;
             min-height: 100vh;
         }
 
-        /* Secciones */
-        .section {
-            display: none;
-            opacity: 0;
-            transform: translateY(6px);
-            transition: opacity 0.45s ease, transform 0.45s ease;
+        /* ------------------------------------------- */
+        /* MENSAJE DE ADVERTENCIA PARA ROTACIÓN        */
+        /* ------------------------------------------- */
+        #orientation-warning {
+            display: none; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #223044;
+            color: white;
+            z-index: 2000; /* Alto z-index para que esté encima de todo */
+            text-align: center;
+            padding: 20px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: inherit;
+        }
+        #orientation-warning i {
+            font-size: 4em;
+            margin-bottom: 0.5em;
+            color: #19b79f;
+        }
+        #orientation-warning p {
+            color: white;
+            font-size: 1.1em;
+            max-width: 80%;
         }
 
-        .section.active {
-            display: block;
-        }
 
-        .section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Tarjeta de contenido */
-        .card {
-            background: rgba(255,255,255,0.95);
-            border-radius: 12px;
-            /* Usamos padding basado en EMs o Rems para que sea relativo al tamaño de la fuente */
-            padding: 1.5em; 
-            box-shadow: 0 8px 22px rgba(16,24,40,0.06);
-            margin-bottom: 18px;
-            line-height: 1.5;
-        }
-
+        /* Secciones, tarjetas, fórmulas, etc. (Mantener estilos anteriores) */
+        .section { display: none; opacity: 0; transform: translateY(6px); transition: opacity 0.45s ease, transform 0.45s ease; }
+        .section.active { display: block; }
+        .section.visible { opacity: 1; transform: translateY(0); }
+        .card { background: rgba(255,255,255,0.95); border-radius: 12px; padding: 1.5em; box-shadow: 0 8px 22px rgba(16,24,40,0.06); margin-bottom: 18px; line-height: 1.5; }
         h1 { font-size: 28px; margin-bottom: 8px; }
         h2 { font-size: 20px; margin-bottom: 8px; }
         h3 { font-size: 16px; margin-bottom: 8px; }
-
         p { margin-bottom: 12px; color: #1e293b; }
-
-        code.inline { background:#f3f4f6; padding:2px 6px; border-radius:6px; font-family:monospace; font-size:0.95em; }
-
-        /* tabla simple */
+        p[style*="font-weight:600"] { text-align: center; }
         table { width: 100%; border-collapse: collapse; margin-top: 8px; }
         th, td { padding: 8px 10px; border-bottom: 1px solid #e6eef6; text-align: left; font-size: 0.95em; }
-        th { background: transparent; color: #0f172a; font-weight: 600; }
-        
-        /* Centrar los párrafos de las ecuaciones */
-        p[style*="font-weight:600"] {
-            text-align: center;
-        }
-
-        /* Footer */
-        footer {
-            margin-top: 26px;
-            padding: 18px;
-            border-radius: 10px;
-            background-color: rgba(236,240,241,0.9);
-            text-align: center;
-            font-size: 0.9em;
-            color: #0f172a;
-        }
-
-        /* Estilo para figura / gif */
+        footer { margin-top: 26px; padding: 18px; border-radius: 10px; background-color: rgba(236,240,241,0.9); text-align: center; font-size: 0.9em; color: #0f172a; }
         figure { margin: 14px 0; text-align: center; }
-        figure img { max-width: 100%; border-radius: 8px; display: inline-block; }
         figure video { max-width: 100%; border-radius: 8px; display: inline-block; }
         figcaption { font-size: 0.9em; color: #475569; margin-top: 6px; }
 
-        /* ------------------------------------------- */
-        /* ADAPTACIÓN RESPONSIVE (Móvil/Tablet pequeña) */
-        /* ------------------------------------------- */
-        @media (max-width: 880px) {
-            
-            /* NAV: Reducimos el ancho y mostramos solo iconos */
-            nav { 
-                /* Nuevo ancho fijo reducido, ocupa menos espacio */
-                width: 64px; 
-                padding: 16px 8px; 
-            }
-            nav h2 { 
-                /* Ocultamos el título de la navegación */
-                display: none; 
-            }
-            .nav-btn { 
-                padding: 10px 8px; 
-                font-size: 12px; 
-                justify-content: center; 
-            }
-            /* Ocultamos el texto de los botones en móvil */
-            .nav-btn .label {
-                display: none;
-            }
 
-            /* MAIN: Ajustamos el margen para que el contenido fluya */
-            main { 
-                /* El margen ahora corresponde al nuevo ancho de NAV + padding */
-                margin-left: 84px; 
-                padding: 18px; 
-            }
+        /* ------------------------------------------- */
+        /* RESPONSIVE Y ORIENTACIÓN HORIZONTAL (Mantenido) */
+        /* ------------------------------------------- */
+        
+        /* Ocultar el contenido y mostrar advertencia en Portrait */
+        @media (max-width: 768px) and (orientation: portrait) {
+            body { display: block; overflow: hidden; }
+            nav, main, footer, #menu-toggle { display: none !important; }
+            #orientation-warning { display: flex; }
         }
 
-        /* Adaptación para dispositivos aún más pequeños (ej. ancho < 480px) */
-        @media (max-width: 480px) {
-            
-            /* NAV: Convertimos la barra lateral en una barra superior oculta o desplegable.
-               Para este diseño simple, vamos a hacer la barra de navegación flotar y que se active
-               solo al hacer clic. Por defecto la ocultaremos parcialmente. */
-            nav {
-                width: 100vw; /* Ocupa todo el ancho de la pantalla */
-                height: auto; /* Altura se ajusta al contenido */
-                flex-direction: row; /* Elementos en línea */
-                flex-wrap: wrap; /* Si hay muchos botones, que bajen */
-                position: relative; /* Ya no es fijo, es parte del flujo del documento */
-                padding: 12px;
-            }
-
-            nav h2 { 
-                display: block; 
-                font-size: 1.2em;
-                width: 100%; /* Ocupa toda la línea */
-                text-align: center;
-                margin-bottom: 12px;
-            }
-            
-            .nav-btn {
-                flex: 1 1 30%; /* Distribuye botones en la fila (30% para que quepan 3 o 4) */
-                padding: 8px 6px;
-                text-align: center;
-                font-size: 12px;
-            }
-            .nav-btn .label {
-                display: block; /* Volvemos a mostrar la etiqueta */
-            }
-            .nav-btn i {
-                display: none; /* Ocultamos el icono para ahorrar espacio, ya que la etiqueta está */
-            }
-
-            /* MAIN: Eliminamos el margen y el contenido ocupa todo el ancho */
-            main {
-                margin-left: 0; /* Eliminamos el margen fijo */
-                padding: 15px; /* Reducimos el padding */
-                width: 100%;
-            }
-            
-            /* Ajuste de fuentes para mejor lectura en pantallas muy pequeñas */
-            h1 { font-size: 1.8em; }
-            h2 { font-size: 1.4em; }
-            .card { padding: 1em; }
+        /* Ajustes para pantallas más pequeñas en modo LANDSCAPE (donde sí se ve) */
+        @media (max-width: 600px) and (orientation: landscape) {
+            main { padding: 15px; padding-top: 60px; }
+            #menu-toggle { top: 10px; left: 10px; width: 35px; height: 35px; font-size: 16px; }
+            h1 { font-size: 1.6em; }
+            h2 { font-size: 1.3em; }
+            .card { padding: 0.8em; }
+            nav { width: 250px; }
         }
     </style>
 </head>
 <body>
 
-    <nav>
+    <div id="orientation-warning">
+        <i class="fas fa-mobile-alt"></i>
+        <h2>¡Gira tu Dispositivo!</h2>
+        <p>Para garantizar la mejor experiencia de visualización del contenido técnico y las fórmulas, por favor, **rota tu celular a modo horizontal** (apaisado).</p>
+    </div>
+
+    <button id="menu-toggle" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <nav id="sidebar-nav">
         <h2>El ABC de la Energía<br><small style="font-weight:400;opacity:.9">Conceptos y Rendimiento</small></h2>
 
         <button class="nav-btn active" id="btn-conceptos" onclick="showSection('conceptos','#f9f9f9', this)"><i class="fas fa-bolt"></i><span class="label">1. Energía, Trabajo y Potencia</span></button>
@@ -490,15 +455,43 @@
     </main>
 
     <script>
-        /* Manejo de secciones, colores y animación visible */
+        /* Variables */
+        const sidebarNav = document.getElementById('sidebar-nav');
+        const menuToggle = document.getElementById('menu-toggle');
         const sections = Array.from(document.querySelectorAll('.section'));
         const navButtons = Array.from(document.querySelectorAll('.nav-btn'));
+
+        /* ------------------------------------------- */
+        /* FUNCIONES DEL MENÚ DESPLEGABLE              */
+        /* ------------------------------------------- */
+
+        function toggleMenu() {
+            sidebarNav.classList.toggle('active');
+            // Cambiar icono de hamburguesa a cruz (opcional)
+            const icon = menuToggle.querySelector('i');
+            if (sidebarNav.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+
+        /* ------------------------------------------- */
+        /* NAVEGACIÓN DE SECCIONES                     */
+        /* ------------------------------------------- */
 
         function clearActiveNav() {
             navButtons.forEach(btn => btn.classList.remove('active'));
         }
 
         function showSection(id, color, btn) {
+            // Cierra el menú desplegable al hacer clic en un botón
+            if (sidebarNav.classList.contains('active')) {
+                toggleMenu(); 
+            }
+            
             // Actualiza botones activos
             clearActiveNav();
             if (btn) btn.classList.add('active');
@@ -518,16 +511,30 @@
             // Cambia colores con transición suave
             document.body.style.backgroundColor = color;
             document.querySelector('main').style.backgroundColor = 'transparent';
-            // footer background ligeramente más opaco
             document.getElementById('footer-card').style.backgroundColor = 'rgba(236,240,241,0.9)';
         }
 
-        // Inicialización: asegurar que la sección visible tenga clase 'visible'
+        /* ------------------------------------------- */
+        /* INICIALIZACIÓN                              */
+        /* ------------------------------------------- */
         document.addEventListener('DOMContentLoaded', () => {
             const visible = document.querySelector('.section.active');
             if (visible) visible.classList.add('visible');
             // Fijar un color inicial suave
             document.body.style.backgroundColor = '#f9f9f9';
+
+            // Cierra el menú si se hace clic fuera de él (opcional pero recomendado)
+            document.addEventListener('click', (e) => {
+                const target = e.target;
+                const isNavButton = navButtons.some(btn => btn.contains(target));
+                const isInsideNav = sidebarNav.contains(target);
+                const isMenuToggle = menuToggle.contains(target);
+
+                // Si se hace clic fuera del menú, del botón toggle, o si ya se está navegando
+                if (sidebarNav.classList.contains('active') && !isInsideNav && !isMenuToggle && !isNavButton) {
+                    toggleMenu();
+                }
+            });
         });
     </script>
 
