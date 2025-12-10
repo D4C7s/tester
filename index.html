@@ -7,6 +7,9 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    
     <script>
         window.MathJax = {
             tex: { inlineMath: [['\\(','\\)'], ['\\[','\\]']] },
@@ -20,7 +23,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            /* body ya no necesita ser flex container directo para el layout principal */
             font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
             min-height: 100vh;
             transition: background-color 1s ease;
@@ -35,7 +37,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 280px; /* Ancho un poco más grande para comodidad */
+            width: 280px; 
             height: 100%;
             background-color: #223044;
             color: #fff;
@@ -43,15 +45,14 @@
             flex-direction: column;
             padding: 24px 18px;
             gap: 8px;
-            z-index: 1000; /* Asegura que esté por encima del contenido */
-            /* Transición para el efecto de deslizado */
+            z-index: 1000; 
             transform: translateX(-100%); 
             transition: transform 0.3s ease;
             box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
         }
 
         nav.active {
-            transform: translateX(0); /* Muestra el menú */
+            transform: translateX(0); 
         }
 
         nav h2 {
@@ -102,7 +103,7 @@
             position: fixed;
             top: 15px;
             left: 15px;
-            z-index: 1001; /* Siempre por encima de todo */
+            z-index: 1001; 
             background-color: #223044;
             color: white;
             border: none;
@@ -123,10 +124,9 @@
         /* ÁREA PRINCIPAL (main)                       */
         /* ------------------------------------------- */
         main {
-            /* Eliminamos el margen fijo, el contenido ocupará el 100% */
             margin: 0;
             padding: 36px;
-            padding-top: 60px; /* Espacio para el botón de menú */
+            padding-top: 60px; 
             width: 100%;
             transition: background-color 1s ease;
             min-height: 100vh;
@@ -144,7 +144,7 @@
             height: 100vh;
             background-color: #223044;
             color: white;
-            z-index: 2000; /* Alto z-index para que esté encima de todo */
+            z-index: 2000; 
             text-align: center;
             padding: 20px;
             flex-direction: column;
@@ -164,7 +164,7 @@
         }
 
 
-        /* Secciones, tarjetas, fórmulas, etc. (Mantener estilos anteriores) */
+        /* Secciones, tarjetas, fórmulas, etc. */
         .section { display: none; opacity: 0; transform: translateY(6px); transition: opacity 0.45s ease, transform 0.45s ease; }
         .section.active { display: block; }
         .section.visible { opacity: 1; transform: translateY(0); }
@@ -181,6 +181,157 @@
         figure video { max-width: 100%; border-radius: 8px; display: inline-block; }
         figcaption { font-size: 0.9em; color: #475569; margin-top: 6px; }
 
+
+        /* ------------------------------------------- */
+        /* ESTILOS ESPECÍFICOS DEL MAPA (section#mapa) */
+        /* ------------------------------------------- */
+        
+        /* Contenedor del mapa debe llenar el espacio de la sección activa */
+        #mapa .card {
+            padding: 0;
+            overflow: hidden;
+            height: 85vh; /* Altura fija para que el mapa se muestre */
+            position: relative;
+        }
+
+        #leaflet-map {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* SIDEBAR (PANEL LATERAL DEL MAPA) */
+        #sidebar-mapa {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 350px;
+            height: 100%;
+            background-color: #ffffff;
+            z-index: 1000;
+            box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2);
+            transform: translateX(100%); 
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 15px;
+        }
+
+        #sidebar-mapa.open {
+            transform: translateX(0); 
+        }
+
+        #sidebar-mapa h2 {
+            margin-top: 0;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            color: #223044;
+            font-size: 1.5em;
+        }
+
+        /* Contenedor de la lista con scroll */
+        #plant-list-container {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 5px; 
+        }
+
+        /* Estilo de los elementos individuales de la lista */
+        .plant-item {
+            background-color: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .plant-item:hover {
+            background-color: #e9ecef;
+            border-color: #1abc9c;
+        }
+
+        .plant-item.highlighted {
+            background-color: #1abc9c;
+            color: white;
+            border-color: #0d836e;
+            font-weight: bold;
+        }
+
+        .plant-item.highlighted p {
+            color: #f8f9fa;
+        }
+        
+        .plant-item h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+        }
+
+        .plant-item .icon {
+            margin-right: 8px;
+            width: 18px;
+            text-align: center;
+        }
+
+        .plant-item p {
+            margin: 4px 0;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        
+        /* BOTÓN DE TOGGLE SIDEBAR DEL MAPA */
+        #sidebar-toggle-mapa {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            background-color: #223044;
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.2s ease, transform 0.2s ease;
+        }
+
+        #sidebar-toggle-mapa:hover {
+            background-color: #1abc9c;
+            transform: scale(1.05);
+        }
+
+        /* Marcadores Leaflet (Para diferenciar por tipo) */
+        .marker-icon {
+            background-color: white;
+            border-radius: 50%;
+            border: 3px solid;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 25px; 
+            color: white;
+            font-size: 14px;
+        }
+        
+        /* Definición de colores para los tipos */
+        .type-eólica { background-color: #2ecc71; border-color: #27ae60; }
+        .type-solar { background-color: #f39c12; border-color: #e67e22; }
+        .type-hidroeléctrica { background-color: #3498db; border-color: #2980b9; }
+        .type-biomasa { background-color: #8e44ad; border-color: #9b59b6; }
+        .type-geotérmica { background-color: #e74c3c; border-color: #c0392b; }
+        .type-nuclear { background-color: #95a5a6; border-color: #7f8c8d; }
+        .type-fósil { background-color: #7f8c8d; border-color: #6c7a89; }
+
+        .popup-content h4 { margin-top: 0; margin-bottom: 5px; font-size: 1.1em; color: #223044; }
+        .popup-content p { margin: 2px 0; font-size: 0.9em; }
 
         /* ------------------------------------------- */
         /* RESPONSIVE Y ORIENTACIÓN HORIZONTAL (Mantenido) */
@@ -201,6 +352,8 @@
             h2 { font-size: 1.3em; }
             .card { padding: 0.8em; }
             nav { width: 250px; }
+            #sidebar-mapa { width: 300px; }
+            #sidebar-toggle-mapa { right: 10px; top: 10px; width: 40px; height: 40px; }
         }
     </style>
 </head>
@@ -232,7 +385,6 @@
         <section id="conceptos" class="section active visible">
             <article class="card">
                 <h1>La Base de Nuestra Matriz Energética: Energía, Trabajo y Potencia</h1>
-
                 <div>
                     <p>
                     Cuando hablamos de energía, muchas veces escuchamos que “es la capacidad que tiene un cuerpo para realizar trabajo”. Esta definición, muy usada en química y biología, suena correcta… pero a los físicos nos deja un poco inconformes. ¿Por qué? Porque es como decir que la energía sirve para hacer lo que hace la energía: una definición que gira en círculo.
@@ -487,6 +639,7 @@
                 </div>
             </article>
         </section>
+
         <section id="tipos" class="section">
             <article class="card">
                 <h1>Tipos de Energías Renovables en Argentina</h1>
@@ -496,8 +649,18 @@
 
         <section id="mapa" class="section">
             <article class="card">
-                <h1>Mapa Interactivo</h1>
-                <p>Placeholder para mapa (Leaflet/Mapbox) — aquí se visualizarán centrales por provincia, tipos y rendimiento.</p>
+                <div id="leaflet-map"></div>
+                
+                <button id="sidebar-toggle-mapa" onclick="toggleSidebarMap()">
+                    <i class="fas fa-list"></i>
+                </button>
+
+                <div id="sidebar-mapa">
+                    <h2>Plantas Energéticas 🇦🇷</h2>
+                    <div id="plant-list-container">
+                        <p style="text-align:center; color:#666; margin-top:20px;">Cargando listado...</p>
+                    </div>
+                </div>
             </article>
         </section>
 
@@ -517,19 +680,36 @@
     </main>
 
     <script>
-        /* Variables */
+        /* Variables y Configuración */
         const sidebarNav = document.getElementById('sidebar-nav');
         const menuToggle = document.getElementById('menu-toggle');
         const sections = Array.from(document.querySelectorAll('.section'));
         const navButtons = Array.from(document.querySelectorAll('.nav-btn'));
+        
+        // Variables globales para el mapa
+        let map;
+        const markers = {};
 
-        /* ------------------------------------------- */
-        /* FUNCIONES DEL MENÚ DESPLEGABLE              */
-        /* ------------------------------------------- */
+        // 5. Datos: Arreglo de plantas energéticas en Argentina
+        const plantsData = [
+            { id: 1, nombre: "Parque Eólico Arauco", tipo: "eólica", lat: -30.0768, lng: -67.0908, imagen: "arauco.jpg", produccion: "620 GWh/año", provincia: "La Rioja" },
+            { id: 2, nombre: "Parque Solar Cauchari", tipo: "solar", lat: -23.7550, lng: -66.9050, imagen: "cauchari.jpg", produccion: "1050 GWh/año", provincia: "Jujuy" },
+            { id: 3, nombre: "Central Hidroeléctrica Yacyretá", tipo: "hidroeléctrica", lat: -27.4861, lng: -56.7667, imagen: "yacyreta.jpg", produccion: "18500 GWh/año", provincia: "Corrientes" },
+            { id: 4, nombre: "Central Termoeléctrica Costanera", tipo: "fósil", lat: -34.6142, lng: -58.3497, imagen: "costanera.jpg", produccion: "9000 GWh/año", provincia: "Buenos Aires" },
+            { id: 5, nombre: "Central Nuclear Atucha II", tipo: "nuclear", lat: -33.9786, lng: -59.2078, imagen: "atucha.jpg", produccion: "5500 GWh/año", provincia: "Buenos Aires" },
+            { id: 6, nombre: "Biomasa Puerto Tirol", tipo: "biomasa", lat: -27.3500, lng: -59.0833, imagen: "tirol.jpg", produccion: "85 GWh/año", provincia: "Chaco" },
+            { id: 7, nombre: "Parque Eólico Madryn", tipo: "eólica", lat: -42.8100, lng: -65.1700, imagen: "madryn.jpg", produccion: "700 GWh/año", provincia: "Chubut" },
+            { id: 8, nombre: "Campo Geotérmico Copahue (Ficticio)", tipo: "geotérmica", lat: -37.8667, lng: -71.0500, imagen: "copahue.jpg", produccion: "120 GWh/año", provincia: "Neuquén" },
+            { id: 9, nombre: "Planta Solar San Juan", tipo: "solar", lat: -31.5375, lng: -68.5361, imagen: "sanjuan.jpg", produccion: "350 GWh/año", provincia: "San Juan" },
+            { id: 10, nombre: "Central Hidroeléctrica El Chocón", tipo: "hidroeléctrica", lat: -39.1917, lng: -68.7917, imagen: "chocon.jpg", produccion: "7000 GWh/año", provincia: "Neuquén" }
+        ];
+
+        // -------------------------------------------
+        // FUNCIONES DEL MENÚ DESPLEGABLE              
+        // -------------------------------------------
 
         function toggleMenu() {
             sidebarNav.classList.toggle('active');
-            // Cambiar icono de hamburguesa a cruz (opcional)
             const icon = menuToggle.querySelector('i');
             if (sidebarNav.classList.contains('active')) {
                 icon.classList.remove('fa-bars');
@@ -549,7 +729,7 @@
         }
 
         function showSection(id, color, btn) {
-            // Cierra el menú desplegable al hacer clic en un botón
+            // Cierra el menú desplegable si está abierto
             if (sidebarNav.classList.contains('active')) {
                 toggleMenu(); 
             }
@@ -570,29 +750,172 @@
                 }
             });
 
+            // Si se activa la sección del mapa, inicializarlo
+            if (id === 'mapa') {
+                // Pequeño delay para asegurar que el contenedor es visible antes de inicializar Leaflet
+                setTimeout(initMap, 100); 
+            } else {
+                // Destruir el mapa si no estamos en la sección para liberar recursos
+                if (map) {
+                    map.remove();
+                    map = null;
+                }
+            }
+
             // Cambia colores con transición suave
             document.body.style.backgroundColor = color;
             document.querySelector('main').style.backgroundColor = 'transparent';
             document.getElementById('footer-card').style.backgroundColor = 'rgba(236,240,241,0.9)';
         }
 
+
         /* ------------------------------------------- */
-        /* INICIALIZACIÓN                              */
+        /* FUNCIONES ESPECÍFICAS DEL MAPA (Leaflet)    */
+        /* ------------------------------------------- */
+
+        const typeIcons = {
+            eólica: { icon: 'fa-wind', color: '#2ecc71' },
+            solar: { icon: 'fa-sun', color: '#f39c12' },
+            hidroeléctrica: { icon: 'fa-water', color: '#3498db' },
+            biomasa: { icon: 'fa-seedling', color: '#8e44ad' },
+            geotérmica: { icon: 'fa-volcano', color: '#e74c3c' },
+            nuclear: { icon: 'fa-radiation', color: '#95a5a6' },
+            fósil: { icon: 'fa-smog', color: '#7f8c8d' }
+        };
+
+        function createCustomIcon(plantType) {
+            const iconData = typeIcons[plantType] || { icon: 'fa-question', color: '#000000' };
+            const iconHtml = `<div class="marker-icon type-${plantType}" style="border-color:${iconData.color}"><i class="fas ${iconData.icon}"></i></div>`;
+            
+            return L.divIcon({
+                className: 'custom-icon',
+                html: iconHtml,
+                iconSize: [30, 30],
+                iconAnchor: [15, 30],
+                popupAnchor: [0, -30]
+            });
+        }
+        
+        function addPlantMarkers() {
+            plantsData.forEach(plant => {
+                const icon = createCustomIcon(plant.tipo);
+                const latLng = [plant.lat, plant.lng];
+
+                // Contenido del Popup
+                const popupContent = `
+                    <div class="popup-content">
+                        <h4>${plant.nombre}</h4>
+                        <p><strong>Tipo:</strong> ${plant.tipo.charAt(0).toUpperCase() + plant.tipo.slice(1)}</p>
+                        <p><strong>Provincia:</strong> ${plant.provincia}</p>
+                        <p><strong>Producción:</strong> ${plant.produccion}</p>
+                    </div>
+                `;
+
+                const marker = L.marker(latLng, { icon: icon, id: plant.id, plantType: plant.tipo })
+                    .bindPopup(popupContent)
+                    .addTo(map);
+
+                // Evento para resaltar el item de la sidebar al hacer clic en el marcador
+                marker.on('click', () => {
+                    highlightSidebarItem(plant.id);
+                });
+                
+                markers[plant.id] = marker; // Almacenar referencia
+            });
+        }
+
+        function populateSidebar() {
+            const container = document.getElementById('plant-list-container');
+            container.innerHTML = ''; 
+
+            plantsData.forEach(plant => {
+                const iconData = typeIcons[plant.tipo];
+                const item = document.createElement('div');
+                item.className = 'plant-item';
+                item.id = `plant-item-${plant.id}`;
+                item.dataset.plantId = plant.id;
+
+                item.innerHTML = `
+                    <h3><span class="icon"><i class="fas ${iconData.icon}" style="color: ${iconData.color};"></i></span>${plant.nombre} (${plant.provincia})</h3>
+                    <p><strong>Tipo:</strong> ${plant.tipo.charAt(0).toUpperCase() + plant.tipo.slice(1)}</p>
+                    <p><strong>Producción Anual:</strong> ${plant.produccion}</p>
+                    <p style="opacity: 0.7;">Imagen: ${plant.imagen}</p>
+                `;
+
+                // Sincronización: Al hacer clic en el item, centrar el mapa
+                item.addEventListener('click', () => {
+                    zoomToMarker(plant.id);
+                    highlightSidebarItem(plant.id);
+                });
+
+                container.appendChild(item);
+            });
+        }
+
+        function initMap() {
+            if (map) return; // Ya inicializado
+            
+            const center = [-34.5, -64.0]; 
+            const initialZoom = 5;
+
+            // Inicializar el mapa en el div con id='leaflet-map'
+            map = L.map('leaflet-map').setView(center, initialZoom);
+
+            // Capa de tiles (OpenStreetMap)
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            addPlantMarkers();
+            populateSidebar();
+
+            // Asegurar que el mapa tome la altura correcta después de la inicialización
+            map.invalidateSize();
+
+            // Abrir la sidebar del mapa por defecto
+            document.getElementById('sidebar-mapa').classList.add('open');
+        }
+
+        function zoomToMarker(plantId) {
+            const marker = markers[plantId];
+            if (marker) {
+                map.flyTo(marker.getLatLng(), 10, { duration: 0.8 }); 
+                marker.openPopup();
+            }
+        }
+
+        function highlightSidebarItem(plantId) {
+            document.querySelectorAll('.plant-item').forEach(item => {
+                item.classList.remove('highlighted');
+            });
+            const itemToHighlight = document.getElementById(`plant-item-${plantId}`);
+            if (itemToHighlight) {
+                itemToHighlight.classList.add('highlighted');
+                itemToHighlight.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); 
+            }
+        }
+
+        function toggleSidebarMap() {
+            document.getElementById('sidebar-mapa').classList.toggle('open');
+        }
+
+
+        /* ------------------------------------------- */
+        /* INICIALIZACIÓN GLOBAL                       */
         /* ------------------------------------------- */
         document.addEventListener('DOMContentLoaded', () => {
             const visible = document.querySelector('.section.active');
             if (visible) visible.classList.add('visible');
-            // Fijar un color inicial suave
             document.body.style.backgroundColor = '#f9f9f9';
 
-            // Cierra el menú si se hace clic fuera de él (opcional pero recomendado)
+            // Cierra el menú si se hace clic fuera de él
             document.addEventListener('click', (e) => {
                 const target = e.target;
                 const isNavButton = navButtons.some(btn => btn.contains(target));
                 const isInsideNav = sidebarNav.contains(target);
                 const isMenuToggle = menuToggle.contains(target);
 
-                // Si se hace clic fuera del menú, del botón toggle, o si ya se está navegando
                 if (sidebarNav.classList.contains('active') && !isInsideNav && !isMenuToggle && !isNavButton) {
                     toggleMenu();
                 }
